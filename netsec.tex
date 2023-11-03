@@ -30,7 +30,7 @@
 \end{frame}
 
 \begin{frame}{The Why (cont.)}
-    It is mostly ment to be used with unreliable protocols which have no session management
+    It is mostly meant to be used with unreliable protocols which have no session management
     to keep the connection alive without continuous data transfer.
 \end{frame}
 
@@ -83,7 +83,7 @@ HeartbeatMessage;
 
 \begin{frame}{The How (cont.)}
 
-    Note that both the request and response are the same just with a differing type field value.
+    Note that both the request and response are the same just with a different type field value.
 
     A peer sends a HeartbeatRequest and then if the other peer is still alive it should echo
     back the payload in a HeartbeatResponse.
@@ -92,17 +92,20 @@ HeartbeatMessage;
 
 \section{Heartbleed}
 \begin{frame}{Heartbleed Explained}
-    Heartbleed is a vunrability in the OpenSSL implementation of the Heartbeat protocol.
-
-    It results in the ability to leak an applications memory by giving a larger payload\_size
-    than the actual payload in the HeartbeatRequest, the OpenSSL implementation didn't have
-    bound checking code resulting in a buffer over-read vunrability, which is down to a
-    memcpy() statement in the code using the unchecked payload\_length to copy from the servers
-    memory into the response.
+    Heartbleed is a vulnerability in the OpenSSL implementation of the Heartbeat protocol.
 
 \end{frame}
 
 \begin{frame}{Heartbleed Explained (cont.)}
+    It results in the ability to leak an applications memory by giving a larger payload\_size
+    than the actual payload in the HeartbeatRequest, the OpenSSL implementation didn't have
+    bound checking code resulting in a buffer over-read vulnerability, which is down to a
+    memcpy() statement which uses the unchecked payload\_length variable to copy the
+    contents of the payload from the servers memory into the response.
+
+\end{frame}
+
+\begin{frame}{Heartbleed Visualization}
     % Credit for image: https://en.wikipedia.org/wiki/File:Simplified_Heartbleed_explanation.svg
     % By: FenixFeather
     \includegraphics[width=\textheight]{heartbleed_visualization.png}
@@ -111,13 +114,13 @@ HeartbeatMessage;
 \section{Demo}
 \begin{frame}{Demo Backround}
     The goal of this demo is to extract secrets from ELGG (a self-hosted social media)
-    instance using a vunrable version of OpenSSL.
+    instance using a vulnerable version of OpenSSL.
 
 \end{frame}
 
 \begin{frame}{Demo Background (cont.)}
     The first step is logging into the instance's admin account and interacting with a user
-    on the victim machine machine so we have data to test on, then we run the heartbleed
+    so we have data to test on, then we run the heartbleed
     attack script on the attacker machine to leak the server memory.
 \end{frame}
 
@@ -134,7 +137,7 @@ HeartbeatMessage;
 \end{frame}
 
 \begin{frame}{Countermeasures}
-    The Heartbleed vunrability can be patched by updating to version 1.0.1g or newer of
+    The Heartbleed vulnerability can be patched by updating to version 1.0.1g or newer of
     OpenSSL.
 \end{frame}
 
